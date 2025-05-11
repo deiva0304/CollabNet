@@ -1,50 +1,99 @@
+// languageOptions.js
 export const languageOptions = [
   {
-    id: "c",
-    name: "C",
-    value: "c",
-    label: "C"
-  },
-  {
     id: "cpp",
-    name: "C++",
     value: "cpp",
-    label: "C++"
-  },
-  {
-    id: "cpp14",
-    name: "C++14",
-    value: "cpp14",
-    label: "C++14"
-  },
-  {
-    id: "cpp17",
-    name: "C++17",
-    value: "cpp17",
-    label: "C++17"
-  },
-  {
-    id: "java",
-    name: "Java",
-    value: "java",
-    label: "Java"
+    label: "C++",
+    defaultCode: `#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << "Hello World!";\n    return 0;\n}`
   },
   {
     id: "python",
-    name: "Python",
     value: "python",
-    label: "Python"
+    label: "Python",
+    defaultCode: `print("Hello, World!")`
   },
   {
-    id: "python2",
-    name: "Python 2",
-    value: "python2",
-    label: "Python 2"
+    id: "java",
+    value: "java",
+    label: "Java",
+    defaultCode: `public class Main {\n    public static void main(String[] args) {\n        System.out.println("Hello, World!");\n    }\n}`
   },
   {
-    id: "python3",
-    name: "Python 3",
-    value: "python3",
-    label: "Python 3"
+    id: "javascript",
+    value: "javascript",
+    label: "JavaScript",
+    defaultCode: `console.log("Hello, World!");`
+  },
+  {
+    id: "c",
+    value: "c",
+    label: "C",
+    defaultCode: `#include <stdio.h>\n\nint main() {\n    printf("Hello, World!");\n    return 0;\n}`
+  },
+  {
+    id: "go",
+    value: "go",
+    label: "Go",
+    defaultCode: `package main\n\nimport "fmt"\n\nfunc main() {\n    fmt.Println("Hello, World!")\n}`
+  },
+  {
+    id: "rust",
+    value: "rust",
+    label: "Rust",
+    defaultCode: `fn main() {\n    println!("Hello, World!");\n}`
+  },
+  {
+    id: "ruby",
+    value: "ruby",
+    label: "Ruby",
+    defaultCode: `puts "Hello, World!"`
+  },
+  {
+    id: "swift",
+    value: "swift",
+    label: "Swift",
+    defaultCode: `print("Hello, World!")`
+  },
+  {
+    id: "php",
+    value: "php",
+    label: "PHP",
+    defaultCode: `<?php\necho "Hello, World!";\n?>`
+  },
+  {
+    id: "typescript",
+    value: "typescript",
+    label: "TypeScript",
+    defaultCode: `console.log("Hello, World!");`
+  },
+  {
+    id: "kotlin",
+    value: "kotlin",
+    label: "Kotlin",
+    defaultCode: `fun main() {\n    println("Hello, World!")\n}`
+  },
+  {
+    id: "scala",
+    value: "scala",
+    label: "Scala",
+    defaultCode: `object Main extends App {\n    println("Hello, World!")\n}`
+  },
+  {
+    id: "r",
+    value: "r",
+    label: "R",
+    defaultCode: `print("Hello, World!")`
+  },
+  {
+    id: "bash",
+    value: "bash",
+    label: "Bash",
+    defaultCode: `echo "Hello, World!"`
+  },
+  {
+    id: "latex",
+    value: "latex",
+    label: "LaTeX",
+    defaultCode: `\\documentclass{article}\n\\usepackage[utf8]{inputenc}\n\n\\title{Your Document}\n\\author{You}\n\\date{\\today}\n\n\\begin{document}\n\n\\maketitle\n\n\\section{Introduction}\nStart writing here!\n\n\\end{document}`
   }
 ];

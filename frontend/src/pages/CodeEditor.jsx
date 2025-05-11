@@ -12,6 +12,7 @@ import randomColor from 'randomcolor'
 import Client from '../components/Client'
 import CopyRoomButton from '../components/CopyRoomButton'
 import OutputDetails from '../components/OutputDetails'
+import PDFViewer from '../components/PDFViewer'
 
 const CodeEditor = ({ roomID }) => {
 
@@ -22,6 +23,7 @@ const CodeEditor = ({ roomID }) => {
     const [currLang, setCurrLang] = useState(languageOptions.find(lang => lang.id === 'cpp'));
     const [compilerText, setCompilerText] = useState('');
     const [input, setInput] = useState('');
+    const [pdfBase64, setPdfBase64] = useState('');
     const randomUserColor = randomColor();
 
     function handleEditorDidMount(editor, monaco) {
@@ -130,8 +132,24 @@ const CodeEditor = ({ roomID }) => {
         if (languageId === 'nodejs' || languageId === 'rhino') return 'javascript';
         if (languageId === 'python3' || languageId === 'python2' || languageId === 'python') return 'python';
         if (languageId === 'cpp' || languageId === 'cpp14' || languageId === 'cpp17') return 'cpp';
+        if (languageId === 'latex') return 'latex';
+        if (languageId === 'js') return 'javascript';
+        if (languageId === 'ruby') return 'ruby';
+        if (languageId === 'php') return 'php';
         return languageId;
     };
+
+    const handleCompilationResponse = (response) => {
+        setCompilerText(response);
+        // Check if the response contains a PDF base64 string (for LaTeX)
+        if (response && response.pdfBase64) {
+            setPdfBase64(response.pdfBase64);
+        } else {
+            setPdfBase64('');
+        }
+    };
+
+    const isLatex = currLang.id === 'latex';
 
     return (
         <div className='mx-5 space-y-1 py-1'>
@@ -144,7 +162,13 @@ const CodeEditor = ({ roomID }) => {
                     </div>
                 )}
             </div>
-            <LanguagesDropdown currValue={currLang} onSelectChange={(event) => setCurrLang(event)}/>
+            <LanguagesDropdown currValue={currLang} onSelectChange={(event) => {
+                setCurrLang(event);
+                // Reset PDF view when changing languages
+                if (event.id !== 'latex') {
+                    setPdfBase64('');
+                }
+            }}/>
             <Editor
                 aria-labelledby="Code Editor"
                 className='justify-center'
@@ -157,14 +181,23 @@ const CodeEditor = ({ roomID }) => {
                 }}
             />
             <div className='flex flex-row'>
-                <CompileButton content={editorRef} langauge={currLang} input={input} setOutput={(output) => {setCompilerText(output)}}/>
+                <CompileButton content={editorRef} langauge={currLang} input={input} setOutput={handleCompilationResponse}/>
                 <CopyRoomButton />
             </div>
-            <div className='flex md:flex-row md:space-x-2 flex-col'>
-                <InputWindow setInput={(input) => {setInput(input)}}/>
-                <OutputWindow outputDetails={compilerText}/>
-            </div>
-            <OutputDetails outputDetails={compilerText}/>
+            
+            {isLatex && pdfBase64 ? (
+                <div className='flex flex-col space-y-2'>
+                    <h3 className='text-xl font-semibold'>PDF Output</h3>
+                    <PDFViewer pdfBase64={pdfBase64} />
+                </div>
+            ) : (
+                <div className='flex md:flex-row md:space-x-2 flex-col'>
+                    <InputWindow setInput={(input) => {setInput(input)}} disabled={isLatex} />
+                    <OutputWindow outputDetails={compilerText} />
+                </div>
+            )}
+            
+            {!isLatex && <OutputDetails outputDetails={compilerText} />}
         </div>
     )
 }

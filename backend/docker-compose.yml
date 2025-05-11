@@ -1,6 +1,7 @@
 version: '3'
 
 services:
+  # Default compiler service using Alpine
   compiler:
     build: .
     ports:
@@ -8,3 +9,15 @@ services:
     volumes:
       - ./temp:/app/temp
     restart: unless-stopped
+    
+  # Alternative compiler service using Ubuntu
+  # Uncomment this and comment out the above service if you have issues with Alpine
+  # compiler-ubuntu:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.ubuntu
+  #   ports:
+  #     - "5000:5000"
+  #   volumes:
+  #     - ./temp:/app/temp
+  #   restart: unless-stopped

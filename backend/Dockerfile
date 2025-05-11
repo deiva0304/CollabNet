@@ -1,15 +1,22 @@
 FROM node:18-alpine
 
-# Install required compilation tools
+# Install required compilation tools and languages
 RUN apk update && apk add --no-cache \
     gcc \
     g++ \
     python3 \
     py3-pip \
-    openjdk11 \
+    openjdk11-jdk \
     cmake \
     make \
-    build-base
+    build-base \
+    ruby \
+    php \
+    go \
+    rust \
+    cargo \
+    texlive \
+    ghostscript
 
 # Create app directory
 WORKDIR /app

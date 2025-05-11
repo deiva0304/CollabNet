@@ -1,13 +1,16 @@
 import React from 'react'
-
 const OutputWindow = ({ outputDetails }) => {
   const getOutput = () => {
     if (!outputDetails) return "Press 'Compile and Execute' to see results";
     
+    // Handle LaTeX PDF case
+    if (outputDetails.pdfBase64) {
+      return "PDF generated successfully. Switch to PDF preview tab to view.";
+    }
+    
     const output = outputDetails.output || "";
     
     if (outputDetails.status === "error") {
-      // Display an error message instead of an empty output
       return output || "Execution error. Check details below.";
     }
     
