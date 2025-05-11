@@ -10,6 +10,17 @@ services:
       - ./temp:/app/temp
     restart: unless-stopped
     
+  # Signaling server for real-time collaboration
+  signaling:
+    build:
+      context: .
+      dockerfile: Dockerfile.signaling
+    ports:
+      - "4444:4444"
+    environment:
+      - SIGNALING_PORT=4444
+    restart: unless-stopped
+    
   # Alternative compiler service using Ubuntu
   # Uncomment this and comment out the above service if you have issues with Alpine
   # compiler-ubuntu:

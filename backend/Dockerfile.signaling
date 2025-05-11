@@ -1,0 +1,19 @@
+FROM node:18-alpine
+
+# Create app directory
+WORKDIR /app
+
+# Copy package files for the signaling server
+COPY package*.json ./
+
+# Install only the dependencies needed for the signaling server
+RUN npm install ws
+
+# Copy the signaling server file
+COPY signaling-server.js ./
+
+# Expose the WebSocket port
+EXPOSE 4444
+
+# Start the signaling server
+CMD ["node", "signaling-server.js"]
